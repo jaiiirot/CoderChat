@@ -1,0 +1,43 @@
+---
+import {
+  getSpaceXLaunches,
+  getspaceXLaunchesById,
+} from "../../services/spacex";
+import Layout from "../../layouts/Layout.astro";
+
+// SI ASTRO VA FUNCIONAR EN EL SERVIDOR
+// esto se tiene que configurar en el astro.config.mjs a hybrid
+export const prerender = false; //server
+
+const { id } = Astro.params;
+let launch = null;
+if (id) {
+  launch = await getspaceXLaunchesById({ id });
+}
+
+/* // SI ASTRO VA FUNCIONAR EN EL CLIENTE STATIC
+export async function getStaticPaths() {
+  const launches = await getSpaceXLaunches();
+  return launches.map((launch) => ({
+    params: { id: launch.id },
+  }));
+} */
+---
+
+<Layout title="SpaceX Launch">
+  <article>
+    {
+      launch ? (
+        <div>
+          <img src={launch.links.patch.small} alt={launch.name} />
+          <h1>{launch.name}</h1>
+          <p>{launch.details}</p>
+        </div>
+      ) : (
+        <div>
+          <h1>Launch not found</h1>
+        </div>
+      )
+    }
+  </article>
+</Layout>
