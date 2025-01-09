@@ -1,0 +1,29 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+import Barcode from "../components/Barcode.svelte";
+---
+
+<Layout title="Add a new client">
+  <header>
+    <h1>Add a new client</h1>
+  </header>
+  <main>
+    <section>
+      <Barcode client:idle />
+    </section>
+
+    <form class="flex flex-col">
+      <label for="name">Name</label>
+      <input type="text" id="name" name="name" />
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" />
+      <label for="phone">Phone</label>
+      <input type="tel" id="phone" name="phone" />
+      <button type="submit">Add client</button>
+    </form>
+  </main>
+  <footer>
+    <a href="/">Back to home</a>
+  </footer>
+</Layout>
